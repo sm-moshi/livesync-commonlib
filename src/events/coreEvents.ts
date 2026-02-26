@@ -56,6 +56,5 @@ declare global {
         [EVENT_REQUEST_OPEN_P2P_SETTINGS]: undefined;
         [EVENT_PLATFORM_UNLOADED]: undefined;
         [EVENT_ON_UNRESOLVED_ERROR]: undefined;
-        [EVENT_REQUEST_CHECK_REMOTE_SIZE]: undefined;
     }
 }
