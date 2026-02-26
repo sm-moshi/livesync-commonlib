@@ -1,4 +1,4 @@
 import ko from "../messagesJson/ko.json";
 export const PartialMessages = {
-    ko,
+	ko,
 } as const;

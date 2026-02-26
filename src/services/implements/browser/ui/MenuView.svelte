@@ -1,19 +1,19 @@
 <script lang="ts">
-    import type { Menu, MenuItem, MenuSeparator } from "../Menu";
-    import MenuItemView from "./MenuItemView.svelte";
-    import MenuSeparatorView from "./MenuSeparatorView.svelte";
+import type { Menu, MenuItem, MenuSeparator } from "../Menu";
+import MenuItemView from "./MenuItemView.svelte";
+import MenuSeparatorView from "./MenuSeparatorView.svelte";
 
-    type Props = {
-        items: (MenuItem | MenuSeparator)[];
-        closeMenu: () => void;
-    };
-    const { items = $bindable(), closeMenu }: Props = $props();
-    function handleKey(event: KeyboardEvent) {
-        if (event.key === "Escape") {
-            event.preventDefault();
-            closeMenu();
-        }
-    }
+type Props = {
+	items: (MenuItem | MenuSeparator)[];
+	closeMenu: () => void;
+};
+const { items = $bindable(), closeMenu }: Props = $props();
+function handleKey(event: KeyboardEvent) {
+	if (event.key === "Escape") {
+		event.preventDefault();
+		closeMenu();
+	}
+}
 </script>
 
 <popup>

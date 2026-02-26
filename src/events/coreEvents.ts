@@ -1,4 +1,7 @@
-import type { FilePathWithPrefix, ObsidianLiveSyncSettings } from "../common/types";
+import type {
+	FilePathWithPrefix,
+	ObsidianLiveSyncSettings,
+} from "../common/types";
 
 export const EVENT_LAYOUT_READY = "layout-ready";
 export const EVENT_PLUGIN_LOADED = "plugin-loaded";
@@ -17,7 +20,8 @@ export const EVENT_REQUEST_COPY_SETUP_URI = "request-copy-setup-uri";
 
 export const EVENT_REQUEST_RELOAD_SETTING_TAB = "reload-setting-tab";
 
-export const EVENT_REQUEST_OPEN_PLUGIN_SYNC_DIALOG = "request-open-plugin-sync-dialog";
+export const EVENT_REQUEST_OPEN_PLUGIN_SYNC_DIALOG =
+	"request-open-plugin-sync-dialog";
 
 export const EVENT_FILE_CHANGED = "event-file-changed";
 export const EVENT_DOCUMENT_STUB_CREATED = "document-stub-created";
@@ -32,16 +36,21 @@ export const EVENT_REQUEST_CHECK_REMOTE_SIZE = "request-check-remote-size";
 // export const EVENT_FILE_CHANGED = "file-changed";
 
 declare global {
-    interface LSEvents {
-        [EVENT_FILE_SAVED]: undefined;
-        [EVENT_SETTING_SAVED]: ObsidianLiveSyncSettings;
-        [EVENT_LAYOUT_READY]: undefined;
-        [EVENT_FILE_CHANGED]: { file: FilePathWithPrefix; automated: boolean };
-        [EVENT_DOCUMENT_STUB_CREATED]: {
-            toc: Set<string>;
-            stub: { [key: string]: { [key: string]: Map<string, Record<string, string>> } };
-        };
-        [EVENT_FILE_RENAMED]: { newPath: FilePathWithPrefix; old: FilePathWithPrefix };
+	interface LSEvents {
+		[EVENT_FILE_SAVED]: undefined;
+		[EVENT_SETTING_SAVED]: ObsidianLiveSyncSettings;
+		[EVENT_LAYOUT_READY]: undefined;
+		[EVENT_FILE_CHANGED]: { file: FilePathWithPrefix; automated: boolean };
+		[EVENT_DOCUMENT_STUB_CREATED]: {
+			toc: Set<string>;
+			stub: {
+				[key: string]: { [key: string]: Map<string, Record<string, string>> };
+			};
+		};
+		[EVENT_FILE_RENAMED]: {
+			newPath: FilePathWithPrefix;
+			old: FilePathWithPrefix;
+		};
 
         [EVENT_DATABASE_REBUILT]: undefined;
         [EVENT_REQUEST_OPEN_P2P_SETTINGS]: undefined;

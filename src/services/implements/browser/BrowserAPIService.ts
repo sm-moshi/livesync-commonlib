@@ -8,54 +8,63 @@ import { BrowserConfirm } from "./BrowserConfirm";
 export declare const PACKAGE_VERSION: string;
 export declare const MANIFEST_VERSION: string;
 
-export class BrowserAPIService<T extends ServiceContext> extends InjectableAPIService<T> {
-    _confirmInstance: Confirm;
-    constructor(context: T) {
-        super(context);
-        this._confirmInstance = new BrowserConfirm(context);
-    }
-    get confirm(): Confirm {
-        return this._confirmInstance;
-    }
+export class BrowserAPIService<
+	T extends ServiceContext,
+> extends InjectableAPIService<T> {
+	_confirmInstance: Confirm;
+	constructor(context: T) {
+		super(context);
+		this._confirmInstance = new BrowserConfirm(context);
+	}
+	get confirm(): Confirm {
+		return this._confirmInstance;
+	}
 
-    showWindow(type: string): Promise<void> {
-        // In a browser environment, showing a window might not be applicable.
-        // TODO: Think implementation
-        return Promise.resolve();
-    }
-    getCustomFetchHandler(): FetchHttpHandler {
-        return undefined!;
-    }
-    isMobile(): boolean {
-        return false;
-    }
-    getAppID(): string {
-        return "browser-app";
-    }
-    getSystemVaultName = handlers<IAPIService>().binder("getSystemVaultName");
-    getAppVersion(): string {
-        return `${MANIFEST_VERSION ?? "0.0.0."}`;
-    }
-    getPluginVersion(): string {
-        return `${MANIFEST_VERSION ?? "0.0.0."}`;
-    }
-    override getPlatform(): string {
-        return "browser";
-    }
-    override getCrypto(): Crypto {
-        return globalThis.crypto;
-    }
-    addCommand<TCommand extends ICommandCompat>(command: TCommand): TCommand {
-        // In a browser environment, command registration might not be applicable.
-        return command;
-    }
-    addRibbonIcon(icon: string, title: string, callback: (evt: MouseEvent) => any): HTMLElement {
-        return document.createElement("div");
-    }
-    registerWindow(type: string, factory: (leaf: any) => any): void {
-        // In a browser environment, window registration might not be applicable.
-    }
-    registerProtocolHandler(action: string, handler: (params: Record<string, string>) => any): void {
-        // In a browser environment, protocol handler registration might not be applicable.
-    }
+	showWindow(type: string): Promise<void> {
+		// In a browser environment, showing a window might not be applicable.
+		// TODO: Think implementation
+		return Promise.resolve();
+	}
+	getCustomFetchHandler(): FetchHttpHandler {
+		return undefined!;
+	}
+	isMobile(): boolean {
+		return false;
+	}
+	getAppID(): string {
+		return "browser-app";
+	}
+	getSystemVaultName = handlers<IAPIService>().binder("getSystemVaultName");
+	getAppVersion(): string {
+		return `${MANIFEST_VERSION ?? "0.0.0."}`;
+	}
+	getPluginVersion(): string {
+		return `${MANIFEST_VERSION ?? "0.0.0."}`;
+	}
+	override getPlatform(): string {
+		return "browser";
+	}
+	override getCrypto(): Crypto {
+		return globalThis.crypto;
+	}
+	addCommand<TCommand extends ICommandCompat>(command: TCommand): TCommand {
+		// In a browser environment, command registration might not be applicable.
+		return command;
+	}
+	addRibbonIcon(
+		icon: string,
+		title: string,
+		callback: (evt: MouseEvent) => any,
+	): HTMLElement {
+		return document.createElement("div");
+	}
+	registerWindow(type: string, factory: (leaf: any) => any): void {
+		// In a browser environment, window registration might not be applicable.
+	}
+	registerProtocolHandler(
+		action: string,
+		handler: (params: Record<string, string>) => any,
+	): void {
+		// In a browser environment, protocol handler registration might not be applicable.
+	}
 }

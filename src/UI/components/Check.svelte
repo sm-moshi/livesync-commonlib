@@ -1,13 +1,19 @@
 <script lang="ts">
-    type Props = {
-        title: string;
-        value: boolean;
-        noteOnSelected?: () => any;
-        noteOnUnselected?: () => any;
-        children?: () => any;
-    };
+type Props = {
+	title: string;
+	value: boolean;
+	noteOnSelected?: () => any;
+	noteOnUnselected?: () => any;
+	children?: () => any;
+};
 
-    let { title, value = $bindable(), noteOnSelected, noteOnUnselected, children }: Props = $props();
+let {
+	title,
+	value = $bindable(),
+	noteOnSelected,
+	noteOnUnselected,
+	children,
+}: Props = $props();
 </script>
 
 <label class="choice-row">

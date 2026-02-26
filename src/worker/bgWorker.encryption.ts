@@ -12,12 +12,12 @@ import { type EncryptArguments } from "./universalTypes.ts";
  * @returns A promise that resolves with the encryption result.
  */
 export function encryptionOnWorker(data: Omit<EncryptArguments, "key">) {
-    const process = startWorker(data);
-    return (async () => {
-        const ret = await process.task.promise;
-        process.finalize();
-        return ret;
-    })();
+	const process = startWorker(data);
+	return (async () => {
+		const ret = await process.task.promise;
+		process.finalize();
+		return ret;
+	})();
 }
 
 /**
@@ -25,13 +25,15 @@ export function encryptionOnWorker(data: Omit<EncryptArguments, "key">) {
  * @param data The data to be encrypted.
  * @returns A promise that resolves with the encryption result.
  */
-export function encryptionHKDFOnWorker(data: Omit<EncryptHKDFArguments, "key">) {
-    const process = startWorker(data);
-    return (async () => {
-        const ret = await process.task.promise;
-        process.finalize();
-        return ret;
-    })();
+export function encryptionHKDFOnWorker(
+	data: Omit<EncryptHKDFArguments, "key">,
+) {
+	const process = startWorker(data);
+	return (async () => {
+		const ret = await process.task.promise;
+		process.finalize();
+		return ret;
+	})();
 }
 
 /**
@@ -39,17 +41,20 @@ export function encryptionHKDFOnWorker(data: Omit<EncryptHKDFArguments, "key">) 
  * @param process The process item associated with the task.
  * @param data The data to be processed.
  */
-export function handleTaskEncrypt(process: EncryptProcessItem | EncryptHKDFProcessItem, data: any) {
-    const key = data.key as number;
-    const task = process.task;
-    if ("result" in data) {
-        task.resolve(data.result);
-    } else {
-        if (data.error) {
-            task.reject(data.error);
-        } else {
-            task.reject(new Error("Unknown error in background encryption"));
-        }
-    }
-    tasks.delete(key);
+export function handleTaskEncrypt(
+	process: EncryptProcessItem | EncryptHKDFProcessItem,
+	data: any,
+) {
+	const key = data.key as number;
+	const task = process.task;
+	if ("result" in data) {
+		task.resolve(data.result);
+	} else {
+		if (data.error) {
+			task.reject(data.error);
+		} else {
+			task.reject(new Error("Unknown error in background encryption"));
+		}
+	}
+	tasks.delete(key);
 }

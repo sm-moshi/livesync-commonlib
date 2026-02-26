@@ -3,250 +3,281 @@
 export type { TaggedType } from "./models/shared.type.util.ts";
 
 export {
-    LOG_LEVEL_DEBUG,
-    LOG_LEVEL_INFO,
-    LOG_LEVEL_NOTICE,
-    LOG_LEVEL_URGENT,
-    LOG_LEVEL_VERBOSE,
+	LOG_LEVEL_DEBUG,
+	LOG_LEVEL_INFO,
+	LOG_LEVEL_NOTICE,
+	LOG_LEVEL_URGENT,
+	LOG_LEVEL_VERBOSE,
 } from "octagonal-wheels/common/logger";
 export type { LOG_LEVEL } from "octagonal-wheels/common/logger";
-import { RESULT_NOT_FOUND, RESULT_TIMED_OUT } from "octagonal-wheels/common/const";
+import {
+	RESULT_NOT_FOUND,
+	RESULT_TIMED_OUT,
+} from "octagonal-wheels/common/const";
 import type { Credential } from "./models/auth.type.ts";
 import type {
-    AnyEntry,
-    ChunkVersionRange,
-    DatabaseEntry,
-    EdenChunk,
-    EntryBase,
-    EntryChunkPack,
-    EntryHasPath,
-    EntryLeaf,
-    EntryType,
-    EntryTypeNotes,
-    EntryTypeNotesWithLegacy,
-    EntryVersionInfo,
-    EntryWithEden,
-    InternalFileEntry,
-    LoadedEntry,
-    MetaEntry,
-    NewEntry,
-    NoteEntry,
-    PlainEntry,
-    SavingEntry,
-    SyncInfo,
+	AnyEntry,
+	ChunkVersionRange,
+	DatabaseEntry,
+	EdenChunk,
+	EntryBase,
+	EntryChunkPack,
+	EntryHasPath,
+	EntryLeaf,
+	EntryType,
+	EntryTypeNotes,
+	EntryTypeNotesWithLegacy,
+	EntryVersionInfo,
+	EntryWithEden,
+	InternalFileEntry,
+	LoadedEntry,
+	MetaEntry,
+	NewEntry,
+	NoteEntry,
+	PlainEntry,
+	SavingEntry,
+	SyncInfo,
 } from "./models/db.type.ts";
 import {
-    ChunkTypes,
-    EntryTypes,
-    MILESTONE_DOCID,
-    NODEINFO_DOCID,
-    NoteTypes,
-    SYNCINFO_ID,
-    VERSIONING_DOCID,
+	ChunkTypes,
+	EntryTypes,
+	MILESTONE_DOCID,
+	NODEINFO_DOCID,
+	NoteTypes,
+	SYNCINFO_ID,
+	VERSIONING_DOCID,
 } from "./models/db.const.ts";
 import {
-    AUTO_MERGED,
-    CANCELLED,
-    LEAVE_TO_SUBSEQUENT,
-    MISSING_OR_ERROR,
-    NOT_CONFLICTED,
-    TIME_ARGUMENT_INFINITY,
+	AUTO_MERGED,
+	CANCELLED,
+	LEAVE_TO_SUBSEQUENT,
+	MISSING_OR_ERROR,
+	NOT_CONFLICTED,
+	TIME_ARGUMENT_INFINITY,
 } from "./models/shared.const.symbols.ts";
 import {
-    IDPrefixes,
-    LEAF_WAIT_ONLY_REMOTE,
-    LEAF_WAIT_TIMEOUT,
-    LEAF_WAIT_TIMEOUT_SEQUENTIAL_REPLICATOR,
-    MAX_DOC_SIZE,
-    MAX_DOC_SIZE_BIN,
-    PREFIX_CHUNK,
-    PREFIX_ENCRYPTED_CHUNK,
-    PREFIX_OBFUSCATED,
-    RECENT_MODIFIED_DOCS_QTY,
-    REPLICATION_BUSY_TIMEOUT,
-    SALT_OF_ID,
-    SALT_OF_PASSPHRASE,
-    SEED_MURMURHASH,
-    VER,
+	IDPrefixes,
+	LEAF_WAIT_ONLY_REMOTE,
+	LEAF_WAIT_TIMEOUT,
+	LEAF_WAIT_TIMEOUT_SEQUENTIAL_REPLICATOR,
+	MAX_DOC_SIZE,
+	MAX_DOC_SIZE_BIN,
+	PREFIX_CHUNK,
+	PREFIX_ENCRYPTED_CHUNK,
+	PREFIX_OBFUSCATED,
+	RECENT_MODIFIED_DOCS_QTY,
+	REPLICATION_BUSY_TIMEOUT,
+	SALT_OF_ID,
+	SALT_OF_PASSPHRASE,
+	SEED_MURMURHASH,
+	VER,
 } from "./models/shared.const.behabiour.ts";
 import {
-    AutoAccepting,
-    type BucketSyncSetting,
-    type ChunkSplitterVersion,
-    type ConfigPassphraseStore,
-    type CouchDBConnection,
-    type E2EEAlgorithm,
-    type EncryptionSettings,
-    type HashAlgorithm,
-    type HasSettings,
-    type LocalDBSettings,
-    type ObsidianLiveSyncSettings,
-    type P2PConnectionInfo,
-    type P2PSyncSetting,
-    type PluginSyncSettingEntry,
-    type RemoteDBSettings,
-    type RemoteType,
-    type RemoteTypeSettings,
-    type SYNC_MODE,
+	AutoAccepting,
+	type BucketSyncSetting,
+	type ChunkSplitterVersion,
+	type ConfigPassphraseStore,
+	type CouchDBConnection,
+	type E2EEAlgorithm,
+	type EncryptionSettings,
+	type HashAlgorithm,
+	type HasSettings,
+	type LocalDBSettings,
+	type ObsidianLiveSyncSettings,
+	type P2PConnectionInfo,
+	type P2PSyncSetting,
+	type PluginSyncSettingEntry,
+	type RemoteDBSettings,
+	type RemoteType,
+	type RemoteTypeSettings,
+	type SYNC_MODE,
 } from "./models/setting.type.ts";
 import {
-    ChunkAlgorithmNames,
-    ChunkAlgorithms,
-    CURRENT_SETTING_VERSION,
-    E2EEAlgorithmNames,
-    E2EEAlgorithms,
-    HashAlgorithms,
-    REMOTE_COUCHDB,
-    REMOTE_MINIO,
-    REMOTE_P2P,
-    RemoteTypes,
-    SETTING_VERSION_INITIAL,
-    SETTING_VERSION_SUPPORT_CASE_INSENSITIVE,
-    MODE_AUTOMATIC,
-    MODE_PAUSED,
-    MODE_SELECTIVE,
-    MODE_SHINY,
+	ChunkAlgorithmNames,
+	ChunkAlgorithms,
+	CURRENT_SETTING_VERSION,
+	E2EEAlgorithmNames,
+	E2EEAlgorithms,
+	HashAlgorithms,
+	REMOTE_COUCHDB,
+	REMOTE_MINIO,
+	REMOTE_P2P,
+	RemoteTypes,
+	SETTING_VERSION_INITIAL,
+	SETTING_VERSION_SUPPORT_CASE_INSENSITIVE,
+	MODE_AUTOMATIC,
+	MODE_PAUSED,
+	MODE_SELECTIVE,
+	MODE_SHINY,
 } from "./models/setting.const.ts";
 import {
-    PREFERRED_BASE,
-    PREFERRED_JOURNAL_SYNC,
-    PREFERRED_SETTING_CLOUDANT,
-    PREFERRED_SETTING_SELF_HOSTED,
+	PREFERRED_BASE,
+	PREFERRED_JOURNAL_SYNC,
+	PREFERRED_SETTING_CLOUDANT,
+	PREFERRED_SETTING_SELF_HOSTED,
 } from "./models/setting.const.preferred.ts";
-import { P2P_DEFAULT_SETTINGS, DEFAULT_SETTINGS } from "./models/setting.const.defaults.ts";
+import {
+	P2P_DEFAULT_SETTINGS,
+	DEFAULT_SETTINGS,
+} from "./models/setting.const.defaults.ts";
 import { KeyIndexOfSettings } from "./models/setting.const.qr.ts";
 import type {
-    DeviceInfo,
-    EntryBody,
-    EntryDoc,
-    EntryDocResponse,
-    EntryMilestoneInfo,
-    EntryNodeInfo,
-    NodeData,
-    NodeKey,
+	DeviceInfo,
+	EntryBody,
+	EntryDoc,
+	EntryDocResponse,
+	EntryMilestoneInfo,
+	EntryNodeInfo,
+	NodeData,
+	NodeKey,
 } from "./models/db.definition.ts";
 import { isMetaEntry } from "./models/db.definition.ts";
 import type {
-    CouchDBCredentials,
-    BasicCredentials,
-    JWTCredentials,
-    JWTHeader,
-    JWTPayload,
-    JWTParams,
-    PreparedJWT,
+	CouchDBCredentials,
+	BasicCredentials,
+	JWTCredentials,
+	JWTHeader,
+	JWTPayload,
+	JWTParams,
+	PreparedJWT,
 } from "./models/auth.type.ts";
 import type {
-    CacheData,
-    FileEventArgs,
-    FileEventItem,
-    FileEventType,
-    UXAbstractInfoStub,
-    UXDataWriteOptions,
-    UXFileInfo,
-    UXFileInfoStub,
-    UXFolderInfo,
-    UXInternalFileInfoStub,
-    UXStat,
+	CacheData,
+	FileEventArgs,
+	FileEventItem,
+	FileEventType,
+	UXAbstractInfoStub,
+	UXDataWriteOptions,
+	UXFileInfo,
+	UXFileInfoStub,
+	UXFolderInfo,
+	UXInternalFileInfoStub,
+	UXStat,
 } from "./models/fileaccess.type.ts";
 import {
-    SETTING_KEY_P2P_DEVICE_NAME,
-    configURIBase,
-    configURIBaseQR,
-    SuffixDatabaseName,
-    ExtraSuffixIndexedDB,
+	SETTING_KEY_P2P_DEVICE_NAME,
+	configURIBase,
+	configURIBaseQR,
+	SuffixDatabaseName,
+	ExtraSuffixIndexedDB,
 } from "./models/shared.const.ts";
 import {
-    configurationNames,
-    LEVEL_ADVANCED,
-    LEVEL_POWER_USER,
-    LEVEL_EDGE_CASE,
-    type ConfigLevel,
-    type ConfigurationItem,
-    statusDisplay,
-    confName,
-    confDesc,
+	configurationNames,
+	LEVEL_ADVANCED,
+	LEVEL_POWER_USER,
+	LEVEL_EDGE_CASE,
+	type ConfigLevel,
+	type ConfigurationItem,
+	statusDisplay,
+	confName,
+	confDesc,
 } from "./models/shared.definition.configNames.ts";
 import type {
-    CustomRegExpSource,
-    CustomRegExpSourceList,
-    ParsedCustomRegExp,
-    Prettify,
+	CustomRegExpSource,
+	CustomRegExpSourceList,
+	ParsedCustomRegExp,
+	Prettify,
 } from "./models/shared.type.util.ts";
 import {
-    ProtocolVersions,
-    type ProtocolVersion,
-    DOCID_SYNC_PARAMETERS,
-    DOCID_JOURNAL_SYNC_PARAMETERS,
-    type SyncParameters,
-    DEFAULT_SYNC_PARAMETERS,
+	ProtocolVersions,
+	type ProtocolVersion,
+	DOCID_SYNC_PARAMETERS,
+	DOCID_JOURNAL_SYNC_PARAMETERS,
+	type SyncParameters,
+	DEFAULT_SYNC_PARAMETERS,
 } from "./models/sync.definition.ts";
 import {
-    TweakValuesShouldMatchedTemplate,
-    IncompatibleChanges,
-    CompatibleButLossyChanges,
-    IncompatibleChangesInSpecificPattern,
-    TweakValuesRecommendedTemplate,
-    TweakValuesDefault,
-    TweakValuesTemplate,
-    type TweakValues,
-    DEVICE_ID_PREFERRED,
+	TweakValuesShouldMatchedTemplate,
+	IncompatibleChanges,
+	CompatibleButLossyChanges,
+	IncompatibleChangesInSpecificPattern,
+	TweakValuesRecommendedTemplate,
+	TweakValuesDefault,
+	TweakValuesTemplate,
+	type TweakValues,
+	DEVICE_ID_PREFERRED,
 } from "./models/tweak.definition.ts";
 import type {
-    diff_result_leaf,
-    dmp_result,
-    diff_result,
-    DIFF_CHECK_RESULT_AUTO,
-    diff_check_result,
+	diff_result_leaf,
+	dmp_result,
+	diff_result,
+	DIFF_CHECK_RESULT_AUTO,
+	diff_check_result,
 } from "./models/diff.definition.ts";
 import {
-    PREFIXMD_LOGFILE,
-    PREFIXMD_LOGFILE_UC,
-    FlagFilesOriginal,
-    FlagFilesHumanReadable,
-    FLAGMD_REDFLAG,
-    FLAGMD_REDFLAG2,
-    FLAGMD_REDFLAG2_HR,
-    FLAGMD_REDFLAG3,
-    FLAGMD_REDFLAG3_HR,
+	PREFIXMD_LOGFILE,
+	PREFIXMD_LOGFILE_UC,
+	FlagFilesOriginal,
+	FlagFilesHumanReadable,
+	FLAGMD_REDFLAG,
+	FLAGMD_REDFLAG2,
+	FLAGMD_REDFLAG2_HR,
+	FLAGMD_REDFLAG3,
+	FLAGMD_REDFLAG3_HR,
 } from "./models/redflag.const.ts";
-import { DatabaseConnectingStatuses, type DatabaseConnectingStatus } from "./models/shared.definition.ts";
+import {
+	DatabaseConnectingStatuses,
+	type DatabaseConnectingStatus,
+} from "./models/shared.definition.ts";
 
 export { RESULT_NOT_FOUND, RESULT_TIMED_OUT };
 
-export type { FilePath, FilePathWithPrefixLC, FilePathWithPrefix, DocumentID } from "./models/db.type.ts";
+export type {
+	FilePath,
+	FilePathWithPrefixLC,
+	FilePathWithPrefix,
+	DocumentID,
+} from "./models/db.type.ts";
 
 export {
-    MAX_DOC_SIZE,
-    MAX_DOC_SIZE_BIN,
-    VER,
-    RECENT_MODIFIED_DOCS_QTY,
-    LEAF_WAIT_TIMEOUT,
-    LEAF_WAIT_ONLY_REMOTE,
-    LEAF_WAIT_TIMEOUT_SEQUENTIAL_REPLICATOR,
-    REPLICATION_BUSY_TIMEOUT,
-    CANCELLED,
-    AUTO_MERGED,
-    NOT_CONFLICTED,
-    MISSING_OR_ERROR,
-    LEAVE_TO_SUBSEQUENT,
-    TIME_ARGUMENT_INFINITY,
-    VERSIONING_DOCID,
-    MILESTONE_DOCID,
-    NODEINFO_DOCID,
+	MAX_DOC_SIZE,
+	MAX_DOC_SIZE_BIN,
+	VER,
+	RECENT_MODIFIED_DOCS_QTY,
+	LEAF_WAIT_TIMEOUT,
+	LEAF_WAIT_ONLY_REMOTE,
+	LEAF_WAIT_TIMEOUT_SEQUENTIAL_REPLICATOR,
+	REPLICATION_BUSY_TIMEOUT,
+	CANCELLED,
+	AUTO_MERGED,
+	NOT_CONFLICTED,
+	MISSING_OR_ERROR,
+	LEAVE_TO_SUBSEQUENT,
+	TIME_ARGUMENT_INFINITY,
+	VERSIONING_DOCID,
+	MILESTONE_DOCID,
+	NODEINFO_DOCID,
 };
 
 export { type CouchDBConnection };
 
 export type { ConfigPassphraseStore };
 
-export { MODE_SELECTIVE, MODE_AUTOMATIC, MODE_PAUSED, MODE_SHINY, type SYNC_MODE };
+export {
+	MODE_SELECTIVE,
+	MODE_AUTOMATIC,
+	MODE_PAUSED,
+	MODE_SHINY,
+	type SYNC_MODE,
+};
 
 export { type PluginSyncSettingEntry };
 
-export { SETTING_VERSION_INITIAL, SETTING_VERSION_SUPPORT_CASE_INSENSITIVE, CURRENT_SETTING_VERSION };
+export {
+	SETTING_VERSION_INITIAL,
+	SETTING_VERSION_SUPPORT_CASE_INSENSITIVE,
+	CURRENT_SETTING_VERSION,
+};
 export type { BucketSyncSetting, LocalDBSettings };
 
-export { RemoteTypes, REMOTE_COUCHDB, REMOTE_MINIO, REMOTE_P2P, type RemoteType, AutoAccepting };
+export {
+	RemoteTypes,
+	REMOTE_COUCHDB,
+	REMOTE_MINIO,
+	REMOTE_P2P,
+	type RemoteType,
+	AutoAccepting,
+};
 export type { P2PConnectionInfo, P2PSyncSetting };
 
 export { P2P_DEFAULT_SETTINGS };
@@ -255,7 +286,13 @@ export type { RemoteTypeSettings };
 export { E2EEAlgorithmNames, E2EEAlgorithms, type E2EEAlgorithm };
 export type { EncryptionSettings };
 
-export { HashAlgorithms, type HashAlgorithm, ChunkAlgorithmNames, ChunkAlgorithms, type ChunkSplitterVersion };
+export {
+	HashAlgorithms,
+	type HashAlgorithm,
+	ChunkAlgorithmNames,
+	ChunkAlgorithms,
+	type ChunkSplitterVersion,
+};
 
 export type { RemoteDBSettings };
 export type { ObsidianLiveSyncSettings };
@@ -265,32 +302,37 @@ export { KeyIndexOfSettings };
 
 export { type HasSettings };
 
-export { PREFERRED_BASE, PREFERRED_SETTING_CLOUDANT, PREFERRED_SETTING_SELF_HOSTED, PREFERRED_JOURNAL_SYNC };
+export {
+	PREFERRED_BASE,
+	PREFERRED_SETTING_CLOUDANT,
+	PREFERRED_SETTING_SELF_HOSTED,
+	PREFERRED_JOURNAL_SYNC,
+};
 
 export {
-    EntryTypes,
-    NoteTypes,
-    ChunkTypes,
-    type EntryType,
-    type EntryTypeNotes,
-    type EntryTypeNotesWithLegacy,
-    type DatabaseEntry,
-    type EntryBase,
-    type EdenChunk,
-    type EntryWithEden,
-    type NoteEntry,
-    type NewEntry,
-    type PlainEntry,
-    type InternalFileEntry,
-    type AnyEntry,
-    type LoadedEntry,
-    type SavingEntry,
-    type MetaEntry,
-    isMetaEntry,
-    type EntryLeaf,
-    type EntryChunkPack,
-    type EntryVersionInfo,
-    type EntryHasPath,
+	EntryTypes,
+	NoteTypes,
+	ChunkTypes,
+	type EntryType,
+	type EntryTypeNotes,
+	type EntryTypeNotesWithLegacy,
+	type DatabaseEntry,
+	type EntryBase,
+	type EdenChunk,
+	type EntryWithEden,
+	type NoteEntry,
+	type NewEntry,
+	type PlainEntry,
+	type InternalFileEntry,
+	type AnyEntry,
+	type LoadedEntry,
+	type SavingEntry,
+	type MetaEntry,
+	isMetaEntry,
+	type EntryLeaf,
+	type EntryChunkPack,
+	type EntryVersionInfo,
+	type EntryHasPath,
 };
 
 export type { ChunkVersionRange };
@@ -350,42 +392,42 @@ export { DatabaseConnectingStatuses };
 export type { DatabaseConnectingStatus };
 
 export {
-    PREFIXMD_LOGFILE,
-    PREFIXMD_LOGFILE_UC,
-    FlagFilesOriginal,
-    FlagFilesHumanReadable,
-    FLAGMD_REDFLAG,
-    FLAGMD_REDFLAG2,
-    FLAGMD_REDFLAG2_HR,
-    FLAGMD_REDFLAG3,
-    FLAGMD_REDFLAG3_HR,
+	PREFIXMD_LOGFILE,
+	PREFIXMD_LOGFILE_UC,
+	FlagFilesOriginal,
+	FlagFilesHumanReadable,
+	FLAGMD_REDFLAG,
+	FLAGMD_REDFLAG2,
+	FLAGMD_REDFLAG2_HR,
+	FLAGMD_REDFLAG3,
+	FLAGMD_REDFLAG3_HR,
 };
 
 export { SYNCINFO_ID };
 export type { SyncInfo };
 
 export {
-    SALT_OF_PASSPHRASE,
-    SALT_OF_ID,
-    SEED_MURMURHASH,
-    IDPrefixes,
-    PREFIX_OBFUSCATED,
-    PREFIX_CHUNK,
-    PREFIX_ENCRYPTED_CHUNK,
+	SALT_OF_PASSPHRASE,
+	SALT_OF_ID,
+	SEED_MURMURHASH,
+	IDPrefixes,
+	PREFIX_OBFUSCATED,
+	PREFIX_CHUNK,
+	PREFIX_ENCRYPTED_CHUNK,
 };
 
 export type {
-    UXStat,
-    UXFileInfo,
-    UXAbstractInfoStub,
-    UXFileInfoStub,
-    UXInternalFileInfoStub,
-    UXFolderInfo,
-    UXDataWriteOptions,
-    CacheData,
-    FileEventType,
-    FileEventArgs,
-    FileEventItem,
+	UXStat,
+	UXFileInfo,
+	UXAbstractInfoStub,
+	UXFileInfoStub,
+	UXInternalFileInfoStub,
+	UXFolderInfo,
+	UXDataWriteOptions,
+	CacheData,
+	FileEventType,
+	FileEventArgs,
+	FileEventItem,
 };
 
 export type { Prettify };
@@ -411,4 +453,10 @@ export { DOCID_JOURNAL_SYNC_PARAMETERS };
 export type { SyncParameters };
 export { DEFAULT_SYNC_PARAMETERS };
 
-export { SETTING_KEY_P2P_DEVICE_NAME, configURIBase, configURIBaseQR, SuffixDatabaseName, ExtraSuffixIndexedDB };
+export {
+	SETTING_KEY_P2P_DEVICE_NAME,
+	configURIBase,
+	configURIBaseQR,
+	SuffixDatabaseName,
+	ExtraSuffixIndexedDB,
+};

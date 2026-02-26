@@ -5,47 +5,47 @@ export let currentLang: I18N_LANGS = "";
 const missingTranslations = [] as string[];
 
 export function __getMissingTranslations() {
-    return missingTranslations;
+	return missingTranslations;
 }
 
 let __onMissingTranslations = (key: string) => console.warn(key);
 export function __onMissingTranslation(callback: (key: string) => void) {
-    __onMissingTranslations = callback;
+	__onMissingTranslations = callback;
 }
 
 const msgCache = new Map<string, string>();
 
 export function setLang(lang: I18N_LANGS) {
-    if (lang === currentLang) return;
-    currentLang = lang;
-    msgCache.clear();
+	if (lang === currentLang) return;
+	currentLang = lang;
+	msgCache.clear();
 }
 
 function _getMessage(key: string, lang: I18N_LANGS) {
-    if (key.trim() == "") return key;
+	if (key.trim() == "") return key;
 
-    const msgs = allMessages[key] ?? undefined;
+	const msgs = allMessages[key] ?? undefined;
 
-    if (lang == "") {
-        lang = "def";
-    }
-    let msg = msgs?.[lang];
+	if (lang == "") {
+		lang = "def";
+	}
+	let msg = msgs?.[lang];
 
-    if (!msg) {
-        if (missingTranslations.indexOf(key) === -1) {
-            __onMissingTranslations(key);
-            missingTranslations.push(key);
-        }
-        msg = msgs?.def;
-    }
-    return msg ?? key;
+	if (!msg) {
+		if (missingTranslations.indexOf(key) === -1) {
+			__onMissingTranslations(key);
+			missingTranslations.push(key);
+		}
+		msg = msgs?.def;
+	}
+	return msg ?? key;
 }
 
 function getMessage(key: string) {
-    if (msgCache.has(key)) return msgCache.get(key) as string;
-    const msg = _getMessage(key, currentLang);
-    msgCache.set(key, msg);
-    return msg;
+	if (msgCache.has(key)) return msgCache.get(key) as string;
+	const msg = _getMessage(key, currentLang);
+	msgCache.set(key, msg);
+	return msg;
 }
 
 /**
@@ -55,10 +55,10 @@ function getMessage(key: string) {
  * @returns Translated message
  */
 export function $t(message: string, lang?: I18N_LANGS) {
-    if (lang !== undefined) {
-        return _getMessage(message, lang);
-    }
-    return getMessage(message);
+	if (lang !== undefined) {
+		return _getMessage(message, lang);
+	}
+	return getMessage(message);
 }
 
 /**
@@ -68,12 +68,12 @@ export function $t(message: string, lang?: I18N_LANGS) {
  * @returns
  */
 export function $f(strings: TemplateStringsArray, ...values: string[]) {
-    let result = "";
-    for (let i = 0; i < values.length; i++) {
-        result += getMessage(strings[i]) + values[i];
-    }
-    result += getMessage(strings[strings.length - 1]);
-    return result;
+	let result = "";
+	for (let i = 0; i < values.length; i++) {
+		result += getMessage(strings[i]) + values[i];
+	}
+	result += getMessage(strings[strings.length - 1]);
+	return result;
 }
 
 /**
@@ -84,14 +84,14 @@ export function $f(strings: TemplateStringsArray, ...values: string[]) {
  * @returns Translated and formatted message.
  */
 export function $msg<T extends AllMessageKeys>(
-    key: T,
-    params: Record<string, string> = {},
-    lang?: I18N_LANGS
+	key: T,
+	params: Record<string, string> = {},
+	lang?: I18N_LANGS,
 ): TaggedType<string, T> {
-    let msg = $t(key, lang);
-    for (const [placeholder, value] of Object.entries(params)) {
-        const regex = new RegExp(`\\\${${placeholder}}`, "g");
-        msg = msg.replace(regex, value);
-    }
-    return msg as TaggedType<string, T>;
+	let msg = $t(key, lang);
+	for (const [placeholder, value] of Object.entries(params)) {
+		const regex = new RegExp(`\\\${${placeholder}}`, "g");
+		msg = msg.replace(regex, value);
+	}
+	return msg as TaggedType<string, T>;
 }

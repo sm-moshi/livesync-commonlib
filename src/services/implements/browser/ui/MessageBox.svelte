@@ -1,17 +1,17 @@
 <script lang="ts">
-    type Props = {
-        title: string;
-        message: string;
-        buttons: string[];
-        commit: (button: string) => void;
-    };
-    const { title, message, buttons, commit }: Props = $props();
+type Props = {
+	title: string;
+	message: string;
+	buttons: string[];
+	commit: (button: string) => void;
+};
+const { title, message, buttons, commit }: Props = $props();
 
-    function handleEsc(event: KeyboardEvent) {
-        if (event.key === "Escape") {
-            commit("");
-        }
-    }
+function handleEsc(event: KeyboardEvent) {
+	if (event.key === "Escape") {
+		commit("");
+	}
+}
 </script>
 
 <popup>

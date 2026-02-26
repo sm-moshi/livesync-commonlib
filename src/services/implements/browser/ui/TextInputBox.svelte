@@ -1,40 +1,41 @@
 <script lang="ts">
-    type Props = {
-        title: string;
-        message: string;
-        initialText?: string;
-        placeholder?: string;
-        isPassword?: boolean;
-        commit: (text: string | false) => void;
-    };
-    const { title, message, commit, initialText, placeholder, isPassword }: Props = $props();
+type Props = {
+	title: string;
+	message: string;
+	initialText?: string;
+	placeholder?: string;
+	isPassword?: boolean;
+	commit: (text: string | false) => void;
+};
+const { title, message, commit, initialText, placeholder, isPassword }: Props =
+	$props();
 
-    let text = $state(initialText || "");
-    let type = $state(isPassword ? "password" : "text");
-    function cancel() {
-        commit(false);
-    }
+let text = $state(initialText || "");
+let type = $state(isPassword ? "password" : "text");
+function cancel() {
+	commit(false);
+}
 
-    function handleKey(event: KeyboardEvent) {
-        if (event.key === "Escape") {
-            handleCancel(event);
-        } else if (event.key === "Enter") {
-            handleCommit(event);
-        }
-    }
-    function handleCancel(event: KeyboardEvent | MouseEvent) {
-        cancel();
-        event.preventDefault();
-    }
+function handleKey(event: KeyboardEvent) {
+	if (event.key === "Escape") {
+		handleCancel(event);
+	} else if (event.key === "Enter") {
+		handleCommit(event);
+	}
+}
+function handleCancel(event: KeyboardEvent | MouseEvent) {
+	cancel();
+	event.preventDefault();
+}
 
-    function handleCommit(event: KeyboardEvent | MouseEvent) {
-        commit(text);
-        event.preventDefault();
-    }
-    let textEl: HTMLInputElement;
-    $effect(() => {
-        textEl.focus();
-    });
+function handleCommit(event: KeyboardEvent | MouseEvent) {
+	commit(text);
+	event.preventDefault();
+}
+let textEl: HTMLInputElement;
+$effect(() => {
+	textEl.focus();
+});
 </script>
 
 <popup>

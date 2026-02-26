@@ -1,39 +1,39 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import type { GuestDialogProps } from "../svelteDialog.ts";
-    import DialogHeader from "../components/DialogHeader.svelte";
-    import Instruction from "../components/Instruction.svelte";
-    import InputRow from "../components/InputRow.svelte";
-    import Decision from "../components/Decision.svelte";
-    import UserDecisions from "../components/UserDecisions.svelte";
-    import InfoNote from "../components/InfoNote.svelte";
-    const TYPE_OK = "ok";
-    type ResultType = typeof TYPE_OK;
-    type Options = {
-        title?: string;
-        dataToCopy: string;
-    };
-    type Props = GuestDialogProps<ResultType, Options>;
-    const { setResult, getInitialData }: Props = $props();
-    let dataToCopy = $state("");
-    let title = $state<string | undefined>(undefined);
-    let copied = $state(false);
-    onMount(() => {
-        if (getInitialData) {
-            const initialData = getInitialData();
-            if (initialData) {
-                dataToCopy = initialData.dataToCopy;
-                title = initialData.title;
-            }
-        }
-    });
-    function commit() {
-        setResult(TYPE_OK);
-    }
-    async function copyToClipboard() {
-        await navigator.clipboard.writeText(dataToCopy);
-        copied = true;
-    }
+import { onMount } from "svelte";
+import type { GuestDialogProps } from "../svelteDialog.ts";
+import DialogHeader from "../components/DialogHeader.svelte";
+import Instruction from "../components/Instruction.svelte";
+import InputRow from "../components/InputRow.svelte";
+import Decision from "../components/Decision.svelte";
+import UserDecisions from "../components/UserDecisions.svelte";
+import InfoNote from "../components/InfoNote.svelte";
+const TYPE_OK = "ok";
+type ResultType = typeof TYPE_OK;
+type Options = {
+	title?: string;
+	dataToCopy: string;
+};
+type Props = GuestDialogProps<ResultType, Options>;
+const { setResult, getInitialData }: Props = $props();
+let dataToCopy = $state("");
+let title = $state<string | undefined>(undefined);
+let copied = $state(false);
+onMount(() => {
+	if (getInitialData) {
+		const initialData = getInitialData();
+		if (initialData) {
+			dataToCopy = initialData.dataToCopy;
+			title = initialData.title;
+		}
+	}
+});
+function commit() {
+	setResult(TYPE_OK);
+}
+async function copyToClipboard() {
+	await navigator.clipboard.writeText(dataToCopy);
+	copied = true;
+}
 </script>
 
 <DialogHeader title="Your {title || 'Data'} is ready to be copied" />

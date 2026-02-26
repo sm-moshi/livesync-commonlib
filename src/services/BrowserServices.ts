@@ -16,25 +16,32 @@ import { InjectableServiceHub } from "@lib/services/implements/injectable/Inject
 import { BrowserUIService } from "@lib/services/implements/browser/BrowserUIService";
 import type { ServiceInstances } from "@lib/services/ServiceHub";
 import { BrowserAPIService } from "./implements/browser/BrowserAPIService";
-import { BrowserDatabaseService, BrowserKeyValueDBService } from "./implements/browser/BrowserDatabaseService";
+import {
+	BrowserDatabaseService,
+	BrowserKeyValueDBService,
+} from "./implements/browser/BrowserDatabaseService";
 import { ControlService } from "./base/ControlService";
 import type { AppLifecycleServiceDependencies } from "./base/AppLifecycleService";
 
-class BrowserAppLifecycleService<T extends ServiceContext> extends InjectableAppLifecycleService<T> {
-    constructor(context: T, dependencies: AppLifecycleServiceDependencies) {
-        super(context, dependencies);
-    }
+class BrowserAppLifecycleService<
+	T extends ServiceContext,
+> extends InjectableAppLifecycleService<T> {
+	constructor(context: T, dependencies: AppLifecycleServiceDependencies) {
+		super(context, dependencies);
+	}
 }
-export class BrowserServiceHub<T extends ServiceContext> extends InjectableServiceHub<T> {
-    //  get vault():InjectableVaultServiceCompat<T>;
-    override get vault(): InjectableVaultServiceCompat<T> {
-        return this._vault as InjectableVaultServiceCompat<T>;
-    }
-    constructor() {
-        const context = new ServiceContext() as T;
-        const API = new BrowserAPIService(context);
-        const conflict = new InjectableConflictService(context);
-        const fileProcessing = new InjectableFileProcessingService(context);
+export class BrowserServiceHub<
+	T extends ServiceContext,
+> extends InjectableServiceHub<T> {
+	//  get vault():InjectableVaultServiceCompat<T>;
+	override get vault(): InjectableVaultServiceCompat<T> {
+		return this._vault as InjectableVaultServiceCompat<T>;
+	}
+	constructor() {
+		const context = new ServiceContext() as T;
+		const API = new BrowserAPIService(context);
+		const conflict = new InjectableConflictService(context);
+		const fileProcessing = new InjectableFileProcessingService(context);
 
         const setting = new InjectableSettingService(context, { APIService: API });
         const appLifecycle = new BrowserAppLifecycleService(context, { settingService: setting });
@@ -70,6 +77,7 @@ export class BrowserServiceHub<T extends ServiceContext> extends InjectableServi
         const replication = new InjectableReplicationService(context, {
             APIService: API,
             appLifecycleService: appLifecycle,
+            databaseEventService: databaseEvents,
             replicatorService: replicator,
             settingService: setting,
             fileProcessingService: fileProcessing,
@@ -96,28 +104,28 @@ export class BrowserServiceHub<T extends ServiceContext> extends InjectableServi
             control: control,
         });
 
-        // Using 'satisfies' to ensure all services are provided
-        const serviceInstancesToInit = {
-            appLifecycle: appLifecycle,
-            conflict: conflict,
-            database: database,
-            databaseEvents: databaseEvents,
-            fileProcessing: fileProcessing,
-            replication: replication,
-            replicator: replicator,
-            remote: remote,
-            setting: setting,
-            tweakValue: tweakValue,
-            vault: vault,
-            test: test,
-            ui: ui,
-            path: path,
-            API: API,
-            config: config,
-            keyValueDB: keyValueDB,
-            control: control,
-        } satisfies Required<ServiceInstances<T>>;
+		// Using 'satisfies' to ensure all services are provided
+		const serviceInstancesToInit = {
+			appLifecycle: appLifecycle,
+			conflict: conflict,
+			database: database,
+			databaseEvents: databaseEvents,
+			fileProcessing: fileProcessing,
+			replication: replication,
+			replicator: replicator,
+			remote: remote,
+			setting: setting,
+			tweakValue: tweakValue,
+			vault: vault,
+			test: test,
+			ui: ui,
+			path: path,
+			API: API,
+			config: config,
+			keyValueDB: keyValueDB,
+			control: control,
+		} satisfies Required<ServiceInstances<T>>;
 
-        super(context, serviceInstancesToInit);
-    }
+		super(context, serviceInstancesToInit);
+	}
 }

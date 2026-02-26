@@ -1,23 +1,23 @@
 import type { FetchHttpHandler } from "@smithy/fetch-http-handler";
 import { type LOG_LEVEL } from "octagonal-wheels/common/logger";
 import type {
-    AnyEntry,
-    AUTO_MERGED,
-    CouchDBCredentials,
-    diff_result,
-    DocumentID,
-    EntryDoc,
-    EntryHasPath,
-    FileEventItem,
-    FilePath,
-    FilePathWithPrefix,
-    LoadedEntry,
-    MetaEntry,
-    MISSING_OR_ERROR,
-    ObsidianLiveSyncSettings,
-    RemoteDBSettings,
-    TweakValues,
-    UXFileInfoStub,
+	AnyEntry,
+	AUTO_MERGED,
+	CouchDBCredentials,
+	diff_result,
+	DocumentID,
+	EntryDoc,
+	EntryHasPath,
+	FileEventItem,
+	FilePath,
+	FilePathWithPrefix,
+	LoadedEntry,
+	MetaEntry,
+	MISSING_OR_ERROR,
+	ObsidianLiveSyncSettings,
+	RemoteDBSettings,
+	TweakValues,
+	UXFileInfoStub,
 } from "../../common/types";
 
 import type { LiveSyncLocalDB } from "../../pouchdb/LiveSyncLocalDB";
@@ -29,365 +29,421 @@ import type { ReactiveSource } from "octagonal-wheels/dataobject/reactive";
 import type { ReplicationStatics } from "../../common/models/shared.definition";
 
 declare global {
-    interface OPTIONAL_SYNC_FEATURES {
-        DISABLE: "DISABLE";
-    }
+	interface OPTIONAL_SYNC_FEATURES {
+		DISABLE: "DISABLE";
+	}
 }
 
 export interface ICommandCompat {
-    id: string;
-    name: string;
-    icon?: string;
-    callback?: () => any;
-    checkCallback?: (checking: boolean) => boolean | void;
-    editorCallback?: (editor: any, ctx: any) => any;
-    editorCheckCallback?: (checking: any, editor: any, ctx: any) => boolean | void;
+	id: string;
+	name: string;
+	icon?: string;
+	callback?: () => any;
+	checkCallback?: (checking: boolean) => boolean | void;
+	editorCallback?: (editor: any, ctx: any) => any;
+	editorCheckCallback?: (
+		checking: any,
+		editor: any,
+		ctx: any,
+	) => boolean | void;
 }
 
 export interface IAPIService {
-    getCustomFetchHandler(): FetchHttpHandler;
+	getCustomFetchHandler(): FetchHttpHandler;
 
-    addLog(message: any, level: LOG_LEVEL, key?: string): void;
+	addLog(message: any, level: LOG_LEVEL, key?: string): void;
 
-    isMobile(): boolean;
+	isMobile(): boolean;
 
-    showWindow(type: string): Promise<void>;
+	showWindow(type: string): Promise<void>;
 
-    getAppID(): string;
+	getAppID(): string;
 
-    getSystemVaultName(): string;
+	getSystemVaultName(): string;
 
-    getPlatform(): string;
+	getPlatform(): string;
 
-    getAppVersion(): string;
+	getAppVersion(): string;
 
-    getPluginVersion(): string;
-    addCommand<TCommand extends ICommandCompat>(command: TCommand): TCommand;
-    registerWindow(type: string, factory: (leaf: any) => any): void;
-    addRibbonIcon(icon: string, title: string, callback: (evt: MouseEvent) => any): HTMLElement;
-    registerProtocolHandler(action: string, handler: (params: Record<string, string>) => any): void;
-    confirm: Confirm;
-    responseCount: ReactiveSource<number>;
-    requestCount: ReactiveSource<number>;
-    isOnline: boolean;
-    webCompatFetch(url: string | Request, opts?: RequestInit): Promise<Response>;
-    nativeFetch(url: string | Request, opts?: RequestInit): Promise<Response>;
+	getPluginVersion(): string;
+	addCommand<TCommand extends ICommandCompat>(command: TCommand): TCommand;
+	registerWindow(type: string, factory: (leaf: any) => any): void;
+	addRibbonIcon(
+		icon: string,
+		title: string,
+		callback: (evt: MouseEvent) => any,
+	): HTMLElement;
+	registerProtocolHandler(
+		action: string,
+		handler: (params: Record<string, string>) => any,
+	): void;
+	confirm: Confirm;
+	responseCount: ReactiveSource<number>;
+	requestCount: ReactiveSource<number>;
+	isOnline: boolean;
+	webCompatFetch(url: string | Request, opts?: RequestInit): Promise<Response>;
+	nativeFetch(url: string | Request, opts?: RequestInit): Promise<Response>;
 }
 export interface IPathService {
-    id2path(id: DocumentID, entry?: EntryHasPath, stripPrefix?: boolean): FilePathWithPrefix;
+	id2path(
+		id: DocumentID,
+		entry?: EntryHasPath,
+		stripPrefix?: boolean,
+	): FilePathWithPrefix;
 
-    path2id(filename: FilePathWithPrefix | FilePath, prefix?: string): Promise<DocumentID>;
-    getPath(entry: AnyEntry): FilePathWithPrefix;
+	path2id(
+		filename: FilePathWithPrefix | FilePath,
+		prefix?: string,
+	): Promise<DocumentID>;
+	getPath(entry: AnyEntry): FilePathWithPrefix;
 }
 export interface openDatabaseParameters {
-    replicator: IReplicatorService;
-    databaseEvents: IDatabaseEventService;
+	replicator: IReplicatorService;
+	databaseEvents: IDatabaseEventService;
 }
 export interface IDatabaseService {
-    localDatabase: LiveSyncLocalDB;
-    managers: LiveSyncManagers;
-    createPouchDBInstance<T extends object>(
-        name?: string,
-        options?: PouchDB.Configuration.DatabaseConfiguration
-    ): PouchDB.Database<T>;
+	localDatabase: LiveSyncLocalDB;
+	managers: LiveSyncManagers;
+	createPouchDBInstance<T extends object>(
+		name?: string,
+		options?: PouchDB.Configuration.DatabaseConfiguration,
+	): PouchDB.Database<T>;
 
-    openDatabase(params: openDatabaseParameters): Promise<boolean>;
+	openDatabase(params: openDatabaseParameters): Promise<boolean>;
 
-    resetDatabase(): Promise<boolean>;
+	resetDatabase(): Promise<boolean>;
 
-    onDatabaseReset: () => Promise<boolean>;
+	onDatabaseReset: () => Promise<boolean>;
 
-    onOpenDatabase: (vaultName: string) => Promise<boolean>;
+	onOpenDatabase: (vaultName: string) => Promise<boolean>;
 
-    isDatabaseReady(): boolean;
+	isDatabaseReady(): boolean;
 }
 export interface IDatabaseEventService {
-    onUnloadDatabase(db: LiveSyncLocalDB): Promise<boolean>;
+	onUnloadDatabase(db: LiveSyncLocalDB): Promise<boolean>;
 
-    onCloseDatabase(db: LiveSyncLocalDB): Promise<boolean>;
+	onCloseDatabase(db: LiveSyncLocalDB): Promise<boolean>;
 
-    onDatabaseInitialisation(db: LiveSyncLocalDB): Promise<boolean>;
+	onDatabaseInitialisation(db: LiveSyncLocalDB): Promise<boolean>;
 
-    onDatabaseInitialised(showNotice: boolean): Promise<boolean>;
+	onDatabaseInitialised(showNotice: boolean): Promise<boolean>;
 
-    onDatabaseHasReady(): Promise<boolean>;
+	onDatabaseHasReady(): Promise<boolean>;
 
-    onResetDatabase(db: LiveSyncLocalDB): Promise<boolean>;
+	onResetDatabase(db: LiveSyncLocalDB): Promise<boolean>;
 
-    initialiseDatabase(showingNotice?: boolean, reopenDatabase?: boolean, ignoreSuspending?: boolean): Promise<boolean>;
+	initialiseDatabase(
+		showingNotice?: boolean,
+		reopenDatabase?: boolean,
+		ignoreSuspending?: boolean,
+	): Promise<boolean>;
 }
 export interface IKeyValueDBService {
-    openSimpleStore<T>(kind: string): SimpleStore<T>;
+	openSimpleStore<T>(kind: string): SimpleStore<T>;
 }
 export interface IFileProcessingService {
-    processFileEvent(item: FileEventItem): Promise<boolean>;
+	processFileEvent(item: FileEventItem): Promise<boolean>;
 
-    processOptionalFileEvent(path: FilePath): Promise<boolean>;
+	processOptionalFileEvent(path: FilePath): Promise<boolean>;
 
-    commitPendingFileEvents(): Promise<boolean>;
-    batched: ReactiveSource<number>;
-    processing: ReactiveSource<number>;
-    totalQueued: ReactiveSource<number>;
-    totalStorageFileEventCount: number;
-    onStorageFileEvent(): void;
+	commitPendingFileEvents(): Promise<boolean>;
+	batched: ReactiveSource<number>;
+	processing: ReactiveSource<number>;
+	totalQueued: ReactiveSource<number>;
+	totalStorageFileEventCount: number;
+	onStorageFileEvent(): void;
 }
 export interface IReplicatorService {
-    onCloseActiveReplication(): Promise<boolean>;
+	onCloseActiveReplication(): Promise<boolean>;
 
-    onReplicatorInitialised(): Promise<boolean>;
+	onReplicatorInitialised(): Promise<boolean>;
 
-    getNewReplicator(
-        settingOverride?: Partial<ObsidianLiveSyncSettings>
-    ): Promise<LiveSyncAbstractReplicator | undefined | false>;
+	getNewReplicator(
+		settingOverride?: Partial<ObsidianLiveSyncSettings>,
+	): Promise<LiveSyncAbstractReplicator | undefined | false>;
 
-    getActiveReplicator(): LiveSyncAbstractReplicator | undefined;
-    replicationStatics: ReactiveSource<ReplicationStatics>;
+	getActiveReplicator(): LiveSyncAbstractReplicator | undefined;
+	replicationStatics: ReactiveSource<ReplicationStatics>;
 }
 export interface IReplicationService {
-    processSynchroniseResult(doc: MetaEntry): Promise<boolean>;
+	processSynchroniseResult(doc: MetaEntry): Promise<boolean>;
 
-    processOptionalSynchroniseResult(doc: LoadedEntry): Promise<boolean>;
-    processVirtualDocument(docs: PouchDB.Core.ExistingDocument<EntryDoc>): Promise<boolean>;
-    onBeforeReplicate(showMessage: boolean): Promise<boolean>;
-    checkConnectionFailure(): Promise<boolean | "CHECKAGAIN" | undefined>;
+	processOptionalSynchroniseResult(doc: LoadedEntry): Promise<boolean>;
+	processVirtualDocument(
+		docs: PouchDB.Core.ExistingDocument<EntryDoc>,
+	): Promise<boolean>;
+	onBeforeReplicate(showMessage: boolean): Promise<boolean>;
+	checkConnectionFailure(): Promise<boolean | "CHECKAGAIN" | undefined>;
 
-    onCheckReplicationReady(showMessage: boolean): Promise<boolean>;
-    isReplicationReady(showMessage: boolean): Promise<boolean>;
-    performReplication(showMessage?: boolean): Promise<boolean | void>;
-    replicate(showMessage?: boolean): Promise<boolean | void>;
-    replicateByEvent(showMessage?: boolean): Promise<boolean | void>;
-    onReplicationFailed(showMessage?: boolean): Promise<boolean>;
-    parseSynchroniseResult(docs: Array<PouchDB.Core.ExistingDocument<EntryDoc>>): Promise<boolean>;
-    databaseQueueCount: ReactiveSource<number>;
-    storageApplyingCount: ReactiveSource<number>;
-    replicationResultCount: ReactiveSource<number>;
+	onCheckReplicationReady(showMessage: boolean): Promise<boolean>;
+	isReplicationReady(showMessage: boolean): Promise<boolean>;
+	performReplication(showMessage?: boolean): Promise<boolean | void>;
+	replicate(showMessage?: boolean): Promise<boolean | void>;
+	replicateByEvent(showMessage?: boolean): Promise<boolean | void>;
+	onReplicationFailed(showMessage?: boolean): Promise<boolean>;
+	parseSynchroniseResult(
+		docs: Array<PouchDB.Core.ExistingDocument<EntryDoc>>,
+	): Promise<boolean>;
+	databaseQueueCount: ReactiveSource<number>;
+	storageApplyingCount: ReactiveSource<number>;
+	replicationResultCount: ReactiveSource<number>;
 
-    replicateAllToRemote(showingNotice?: boolean, sendChunksInBulkDisabled?: boolean): Promise<boolean>;
+	replicateAllToRemote(
+		showingNotice?: boolean,
+		sendChunksInBulkDisabled?: boolean,
+	): Promise<boolean>;
 
-    replicateAllFromRemote(showingNotice?: boolean): Promise<boolean>;
+	replicateAllFromRemote(showingNotice?: boolean): Promise<boolean>;
 
-    markLocked(lockByClean?: boolean): Promise<void>;
+	markLocked(lockByClean?: boolean): Promise<void>;
 
-    markUnlocked(): Promise<void>;
+	markUnlocked(): Promise<void>;
 
-    markResolved(): Promise<void>;
+	markResolved(): Promise<void>;
 }
 export interface IRemoteService {
-    connect(
-        uri: string,
-        auth: CouchDBCredentials,
-        disableRequestURI: boolean,
-        passphrase: string | false,
-        useDynamicIterationCount: boolean,
-        performSetup: boolean,
-        skipInfo: boolean,
-        compression: boolean,
-        customHeaders: Record<string, string>,
-        useRequestAPI: boolean,
-        getPBKDF2Salt: () => Promise<Uint8Array<ArrayBuffer>>
-    ): Promise<
-        | string
-        | {
-              db: PouchDB.Database<EntryDoc>;
-              info: PouchDB.Core.DatabaseInfo;
-          }
-    >;
+	connect(
+		uri: string,
+		auth: CouchDBCredentials,
+		disableRequestURI: boolean,
+		passphrase: string | false,
+		useDynamicIterationCount: boolean,
+		performSetup: boolean,
+		skipInfo: boolean,
+		compression: boolean,
+		customHeaders: Record<string, string>,
+		useRequestAPI: boolean,
+		getPBKDF2Salt: () => Promise<Uint8Array<ArrayBuffer>>,
+	): Promise<
+		| string
+		| {
+				db: PouchDB.Database<EntryDoc>;
+				info: PouchDB.Core.DatabaseInfo;
+		  }
+	>;
 
-    /**
-     * State if the last POST request failed due to payload size.
-     */
-    get hadLastPostFailedBySize(): boolean;
+	/**
+	 * State if the last POST request failed due to payload size.
+	 */
+	get hadLastPostFailedBySize(): boolean;
 }
 export interface IConflictService {
-    getOptionalConflictCheckMethod(path: FilePathWithPrefix): Promise<boolean | undefined | "newer">;
-    resolveByUserInteraction: (
-        filename: FilePathWithPrefix,
-        conflictCheckResult: diff_result
-    ) => Promise<boolean | undefined>;
+	getOptionalConflictCheckMethod(
+		path: FilePathWithPrefix,
+	): Promise<boolean | undefined | "newer">;
+	resolveByUserInteraction: (
+		filename: FilePathWithPrefix,
+		conflictCheckResult: diff_result,
+	) => Promise<boolean | undefined>;
 
-    queueCheckForIfOpen(path: FilePathWithPrefix): Promise<void>;
+	queueCheckForIfOpen(path: FilePathWithPrefix): Promise<void>;
 
-    queueCheckFor(path: FilePathWithPrefix): Promise<void>;
+	queueCheckFor(path: FilePathWithPrefix): Promise<void>;
 
-    ensureAllProcessed(): Promise<boolean>;
+	ensureAllProcessed(): Promise<boolean>;
 
-    resolveByDeletingRevision(
-        path: FilePathWithPrefix,
-        deleteRevision: string,
-        title: string
-    ): Promise<typeof MISSING_OR_ERROR | typeof AUTO_MERGED>;
+	resolveByDeletingRevision(
+		path: FilePathWithPrefix,
+		deleteRevision: string,
+		title: string,
+	): Promise<typeof MISSING_OR_ERROR | typeof AUTO_MERGED>;
 
-    resolve(filename: FilePathWithPrefix): Promise<void>;
+	resolve(filename: FilePathWithPrefix): Promise<void>;
 
-    resolveByNewest(filename: FilePathWithPrefix): Promise<boolean>;
+	resolveByNewest(filename: FilePathWithPrefix): Promise<boolean>;
 
-    resolveAllConflictedFilesByNewerOnes(): Promise<void>;
-    conflictProcessQueueCount: ReactiveSource<number>;
+	resolveAllConflictedFilesByNewerOnes(): Promise<void>;
+	conflictProcessQueueCount: ReactiveSource<number>;
 }
 export interface IAppLifecycleService {
-    onLayoutReady(): Promise<boolean>;
-    onFirstInitialise(): Promise<boolean>;
-    onReady(): Promise<boolean>;
-    onWireUpEvents(): Promise<boolean>;
-    onInitialise(): Promise<boolean>;
-    onLoad(): Promise<boolean>;
-    onSettingLoaded(): Promise<boolean>;
-    onLoaded(): Promise<boolean>;
-    onScanningStartupIssues(): Promise<boolean>;
-    onAppUnload(): Promise<void>;
-    onBeforeUnload(): Promise<boolean>;
-    onUnload(): Promise<boolean>;
-    onSuspending(): Promise<boolean>;
-    onResuming(): Promise<boolean>;
-    onResumed(): Promise<boolean>;
-    getUnresolvedMessages: () => Promise<(string | Error)[][]>;
+	onLayoutReady(): Promise<boolean>;
+	onFirstInitialise(): Promise<boolean>;
+	onReady(): Promise<boolean>;
+	onWireUpEvents(): Promise<boolean>;
+	onInitialise(): Promise<boolean>;
+	onLoad(): Promise<boolean>;
+	onSettingLoaded(): Promise<boolean>;
+	onLoaded(): Promise<boolean>;
+	onScanningStartupIssues(): Promise<boolean>;
+	onAppUnload(): Promise<void>;
+	onBeforeUnload(): Promise<boolean>;
+	onUnload(): Promise<boolean>;
+	onSuspending(): Promise<boolean>;
+	onResuming(): Promise<boolean>;
+	onResumed(): Promise<boolean>;
+	getUnresolvedMessages: () => Promise<(string | Error)[][]>;
 
-    performRestart(): void;
+	performRestart(): void;
 
-    askRestart(message?: string): void;
+	askRestart(message?: string): void;
 
-    scheduleRestart(): void;
+	scheduleRestart(): void;
 
-    isSuspended(): boolean;
+	isSuspended(): boolean;
 
-    setSuspended(suspend: boolean): void;
+	setSuspended(suspend: boolean): void;
 
-    isReady(): boolean;
+	isReady(): boolean;
 
-    markIsReady(): void;
+	markIsReady(): void;
 
-    resetIsReady(): void;
+	resetIsReady(): void;
 
-    isReloadingScheduled(): boolean;
+	isReloadingScheduled(): boolean;
 }
 export interface ISettingService {
-    onBeforeRealiseSetting(): Promise<boolean>;
-    onSettingRealised(): Promise<boolean>;
-    onRealiseSetting(): Promise<boolean>;
-    suspendAllSync(): Promise<boolean>;
-    suspendExtraSync(): Promise<boolean>;
-    suggestOptionalFeatures(opt: { enableFetch?: boolean; enableOverwrite?: boolean }): Promise<boolean>;
-    enableOptionalFeature(mode: keyof OPTIONAL_SYNC_FEATURES): Promise<boolean>;
+	onBeforeRealiseSetting(): Promise<boolean>;
+	onSettingRealised(): Promise<boolean>;
+	onRealiseSetting(): Promise<boolean>;
+	suspendAllSync(): Promise<boolean>;
+	suspendExtraSync(): Promise<boolean>;
+	suggestOptionalFeatures(opt: {
+		enableFetch?: boolean;
+		enableOverwrite?: boolean;
+	}): Promise<boolean>;
+	enableOptionalFeature(mode: keyof OPTIONAL_SYNC_FEATURES): Promise<boolean>;
 
-    clearUsedPassphrase(): void;
+	clearUsedPassphrase(): void;
 
-    decryptSettings(settings: ObsidianLiveSyncSettings): Promise<ObsidianLiveSyncSettings>;
+	decryptSettings(
+		settings: ObsidianLiveSyncSettings,
+	): Promise<ObsidianLiveSyncSettings>;
 
-    adjustSettings(settings: ObsidianLiveSyncSettings): Promise<ObsidianLiveSyncSettings>;
+	adjustSettings(
+		settings: ObsidianLiveSyncSettings,
+	): Promise<ObsidianLiveSyncSettings>;
 
-    loadSettings(): Promise<void>;
+	loadSettings(): Promise<void>;
 
-    getDeviceAndVaultName(): string;
+	getDeviceAndVaultName(): string;
 
-    setDeviceAndVaultName(name: string): void;
+	setDeviceAndVaultName(name: string): void;
 
-    saveDeviceAndVaultName(): void;
+	saveDeviceAndVaultName(): void;
 
-    saveSettingData(): Promise<void>;
+	saveSettingData(): Promise<void>;
 
-    currentSettings(): ObsidianLiveSyncSettings;
+	currentSettings(): ObsidianLiveSyncSettings;
 
-    updateSettings(
-        updateFn: (current: ObsidianLiveSyncSettings) => ObsidianLiveSyncSettings,
-        saveImmediately?: boolean
-    ): Promise<void>;
-    applyPartial(partial: Partial<ObsidianLiveSyncSettings>, saveImmediately?: boolean): Promise<void>;
+	updateSettings(
+		updateFn: (current: ObsidianLiveSyncSettings) => ObsidianLiveSyncSettings,
+		saveImmediately?: boolean,
+	): Promise<void>;
+	applyPartial(
+		partial: Partial<ObsidianLiveSyncSettings>,
+		saveImmediately?: boolean,
+	): Promise<void>;
 
-    onSettingLoaded(settings: ObsidianLiveSyncSettings): Promise<boolean>;
-    onSettingChanged(settings: ObsidianLiveSyncSettings): Promise<boolean>;
-    onSettingSaved(settings: ObsidianLiveSyncSettings): Promise<boolean>;
+	onSettingLoaded(settings: ObsidianLiveSyncSettings): Promise<boolean>;
+	onSettingChanged(settings: ObsidianLiveSyncSettings): Promise<boolean>;
+	onSettingSaved(settings: ObsidianLiveSyncSettings): Promise<boolean>;
 
-    getSmallConfig(key: string): string | null;
+	getSmallConfig(key: string): string | null;
 
-    setSmallConfig(key: string, value: string): void;
+	setSmallConfig(key: string, value: string): void;
 
-    deleteSmallConfig(key: string): void;
+	deleteSmallConfig(key: string): void;
 }
 export interface ITweakValueService {
-    fetchRemotePreferred(trialSetting: RemoteDBSettings): Promise<TweakValues | false>;
+	fetchRemotePreferred(
+		trialSetting: RemoteDBSettings,
+	): Promise<TweakValues | false>;
 
-    checkAndAskResolvingMismatched(preferred: Partial<TweakValues>): Promise<[TweakValues | boolean, boolean]>;
+	checkAndAskResolvingMismatched(
+		preferred: Partial<TweakValues>,
+	): Promise<[TweakValues | boolean, boolean]>;
 
-    askResolvingMismatched(preferredSource: TweakValues): Promise<"OK" | "CHECKAGAIN" | "IGNORE">;
+	askResolvingMismatched(
+		preferredSource: TweakValues,
+	): Promise<"OK" | "CHECKAGAIN" | "IGNORE">;
 
-    checkAndAskUseRemoteConfiguration(
-        settings: RemoteDBSettings
-    ): Promise<{ result: false | TweakValues; requireFetch: boolean }>;
+	checkAndAskUseRemoteConfiguration(
+		settings: RemoteDBSettings,
+	): Promise<{ result: false | TweakValues; requireFetch: boolean }>;
 
-    askUseRemoteConfiguration(
-        trialSetting: RemoteDBSettings,
-        preferred: TweakValues
-    ): Promise<{ result: false | TweakValues; requireFetch: boolean }>;
+	askUseRemoteConfiguration(
+		trialSetting: RemoteDBSettings,
+		preferred: TweakValues,
+	): Promise<{ result: false | TweakValues; requireFetch: boolean }>;
 }
 export interface IVaultService {
-    vaultName(): string;
+	vaultName(): string;
 
-    getVaultName(): string;
+	getVaultName(): string;
 
-    scanVault(showingNotice?: boolean, ignoreSuspending?: boolean): Promise<boolean>;
+	scanVault(
+		showingNotice?: boolean,
+		ignoreSuspending?: boolean,
+	): Promise<boolean>;
 
-    isIgnoredByIgnoreFile(file: string | UXFileInfoStub): Promise<boolean>;
+	isIgnoredByIgnoreFile(file: string | UXFileInfoStub): Promise<boolean>;
 
-    isTargetFile(file: string | UXFileInfoStub): Promise<boolean>;
+	isTargetFile(file: string | UXFileInfoStub): Promise<boolean>;
 
-    isFileSizeTooLarge(size: number): boolean;
+	isFileSizeTooLarge(size: number): boolean;
 
-    getActiveFilePath(): FilePath | undefined;
+	getActiveFilePath(): FilePath | undefined;
 
-    isStorageInsensitive(): boolean;
+	isStorageInsensitive(): boolean;
 
-    shouldCheckCaseInsensitively(): boolean;
+	shouldCheckCaseInsensitively(): boolean;
 }
 export interface ITestService {
-    test(): Promise<boolean>;
-    testMultiDevice(): Promise<boolean>;
+	test(): Promise<boolean>;
+	testMultiDevice(): Promise<boolean>;
 
-    addTestResult(name: string, key: string, result: boolean, summary?: string, message?: string): void;
+	addTestResult(
+		name: string,
+		key: string,
+		result: boolean,
+		summary?: string,
+		message?: string,
+	): void;
 }
 export interface IUIService {
-    promptCopyToClipboard(title: string, value: string): Promise<boolean>;
+	promptCopyToClipboard(title: string, value: string): Promise<boolean>;
 
-    showMarkdownDialog<T extends string[]>(
-        title: string,
-        contentMD: string,
-        buttons: T
-    ): Promise<(typeof buttons)[number] | false>;
+	showMarkdownDialog<T extends string[]>(
+		title: string,
+		contentMD: string,
+		buttons: T,
+	): Promise<(typeof buttons)[number] | false>;
 
-    get confirm(): Confirm;
+	get confirm(): Confirm;
 }
 export interface IConfigService {
-    getSmallConfig(key: string): string | null;
+	getSmallConfig(key: string): string | null;
 
-    setSmallConfig(key: string, value: string): void;
+	setSmallConfig(key: string, value: string): void;
 
-    deleteSmallConfig(key: string): void;
+	deleteSmallConfig(key: string): void;
 }
 
 export interface IServiceHub {
-    API: IAPIService;
-    path: IPathService;
-    database: IDatabaseService;
-    databaseEvents: IDatabaseEventService;
-    replicator: IReplicatorService;
-    fileProcessing: IFileProcessingService;
-    replication: IReplicationService;
-    remote: IRemoteService;
-    conflict: IConflictService;
-    appLifecycle: IAppLifecycleService;
-    setting: ISettingService;
-    tweakValue: ITweakValueService;
-    vault: IVaultService;
-    test: ITestService;
-    UI: IUIService;
-    config: IConfigService;
-    keyValueDB: IKeyValueDBService;
-    control: IControlService;
+	API: IAPIService;
+	path: IPathService;
+	database: IDatabaseService;
+	databaseEvents: IDatabaseEventService;
+	replicator: IReplicatorService;
+	fileProcessing: IFileProcessingService;
+	replication: IReplicationService;
+	remote: IRemoteService;
+	conflict: IConflictService;
+	appLifecycle: IAppLifecycleService;
+	setting: ISettingService;
+	tweakValue: ITweakValueService;
+	vault: IVaultService;
+	test: ITestService;
+	UI: IUIService;
+	config: IConfigService;
+	keyValueDB: IKeyValueDBService;
+	control: IControlService;
 }
 
 export interface IControlService {
-    applySettings(): Promise<void>;
-    onLoad(): Promise<boolean>;
-    onReady(): Promise<boolean>;
-    onUnload(): Promise<void>;
-    hasUnloaded(): boolean;
+	applySettings(): Promise<void>;
+	onLoad(): Promise<boolean>;
+	onReady(): Promise<boolean>;
+	onUnload(): Promise<void>;
+	hasUnloaded(): boolean;
 }

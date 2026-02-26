@@ -1,4 +1,4 @@
 import es from "../messagesJson/es.json";
 export const PartialMessages = {
-    es,
+	es,
 } as const;

@@ -2,12 +2,12 @@ import type { IConfigService } from "@lib/services/base/IService";
 import { ServiceBase, type ServiceContext } from "./ServiceBase";
 
 export abstract class ConfigService<T extends ServiceContext = ServiceContext>
-    extends ServiceBase<T>
-    implements IConfigService
+	extends ServiceBase<T>
+	implements IConfigService
 {
-    abstract getSmallConfig(key: string): string | null;
+	abstract getSmallConfig(key: string): string | null;
 
-    abstract setSmallConfig(key: string, value: string): void;
+	abstract setSmallConfig(key: string, value: string): void;
 
-    abstract deleteSmallConfig(key: string): void;
+	abstract deleteSmallConfig(key: string): void;
 }

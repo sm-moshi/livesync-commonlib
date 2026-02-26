@@ -1,9 +1,9 @@
 <script lang="ts">
-    type Props = {
-        info: Record<string, any>;
-    };
-    const { info }: Props = $props();
-    const infoEntries = $derived.by(() => Object.entries(info ?? {}));
+type Props = {
+	info: Record<string, any>;
+};
+const { info }: Props = $props();
+const infoEntries = $derived.by(() => Object.entries(info ?? {}));
 </script>
 
 <div class="info-panel">

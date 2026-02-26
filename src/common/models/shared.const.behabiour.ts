@@ -16,9 +16,9 @@ export const SALT_OF_ID = "a83hrf7f\u0003y7sa8g31";
 export const SEED_MURMURHASH = 0x12345678;
 
 export const IDPrefixes = {
-    Obfuscated: "f:",
-    Chunk: "h:",
-    EncryptedChunk: "h:+",
+	Obfuscated: "f:",
+	Chunk: "h:",
+	EncryptedChunk: "h:+",
 };
 /**
  * @deprecated Use `IDPrefixes.Obfuscated` instead.

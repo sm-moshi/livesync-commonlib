@@ -1,18 +1,25 @@
 <script lang="ts">
-    import { fireAndForget } from "octagonal-wheels/promises";
+import { fireAndForget } from "octagonal-wheels/promises";
 
-    type Props = {
-        title: string;
-        commit: () => Promise<void> | void;
-        important?: boolean;
-        destructive?: boolean;
-        additionalClasses?: string;
-        disabled?: boolean;
-    };
-    let { title, commit, additionalClasses, important, disabled = $bindable(), destructive }: Props = $props();
-    function onclick() {
-        fireAndForget(async () => commit());
-    }
+type Props = {
+	title: string;
+	commit: () => Promise<void> | void;
+	important?: boolean;
+	destructive?: boolean;
+	additionalClasses?: string;
+	disabled?: boolean;
+};
+let {
+	title,
+	commit,
+	additionalClasses,
+	important,
+	disabled = $bindable(),
+	destructive,
+}: Props = $props();
+function onclick() {
+	fireAndForget(async () => commit());
+}
 </script>
 
 <button

@@ -1,33 +1,33 @@
 <script lang="ts">
-    import type { MenuItem } from "../Menu";
+import type { MenuItem } from "../Menu";
 
-    type Props = {
-        item: MenuItem;
-        closeMenu: () => void;
-    };
-    const { item = $bindable(), closeMenu }: Props = $props();
-    function handleCommit(event: MouseEvent | KeyboardEvent) {
-        event.preventDefault();
-        try {
-            if (item.handler) {
-                item.handler?.();
-            }
-        } catch (ex) {
-            console.error(ex);
-        }
-        closeMenu();
-    }
-    const icons = {
-        checkmark: "✓",
-    } as { [key: string]: string };
-    function renderIcon(item: MenuItem) {
-        if (item.icon && item.icon in icons) {
-            return icons[item.icon] ?? item.icon;
-        } else if (item.icon !== undefined) {
-            return "";
-        }
-        return "";
-    }
+type Props = {
+	item: MenuItem;
+	closeMenu: () => void;
+};
+const { item = $bindable(), closeMenu }: Props = $props();
+function handleCommit(event: MouseEvent | KeyboardEvent) {
+	event.preventDefault();
+	try {
+		if (item.handler) {
+			item.handler?.();
+		}
+	} catch (ex) {
+		console.error(ex);
+	}
+	closeMenu();
+}
+const icons = {
+	checkmark: "✓",
+} as { [key: string]: string };
+function renderIcon(item: MenuItem) {
+	if (item.icon && item.icon in icons) {
+		return icons[item.icon] ?? item.icon;
+	} else if (item.icon !== undefined) {
+		return "";
+	}
+	return "";
+}
 </script>
 
 <li>

@@ -1,9 +1,9 @@
 <script lang="ts">
-    type Props = {
-        title?: string;
-        children?: () => any;
-    };
-    const { children, title }: Props = $props();
+type Props = {
+	title?: string;
+	children?: () => any;
+};
+const { children, title }: Props = $props();
 </script>
 
 <details>

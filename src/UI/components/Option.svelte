@@ -1,27 +1,27 @@
 <script lang="ts">
-    import { getContext } from "svelte";
+import { getContext } from "svelte";
 
-    type Props = {
-        title: string;
-        value: string;
-        selectedValue: string;
-        noteOnSelected?: () => any;
-        noteOnUnselected?: () => any;
-        group?: string;
-        children?: () => any;
-    };
-    const definedGroupContext = getContext<string>("radioGroup");
+type Props = {
+	title: string;
+	value: string;
+	selectedValue: string;
+	noteOnSelected?: () => any;
+	noteOnUnselected?: () => any;
+	group?: string;
+	children?: () => any;
+};
+const definedGroupContext = getContext<string>("radioGroup");
 
-    let {
-        title,
-        value = $bindable(),
-        noteOnSelected,
-        noteOnUnselected,
-        selectedValue,
-        group,
-        children,
-    }: Props = $props();
-    const actualGroup = group ?? definedGroupContext;
+let {
+	title,
+	value = $bindable(),
+	noteOnSelected,
+	noteOnUnselected,
+	selectedValue,
+	group,
+	children,
+}: Props = $props();
+const actualGroup = group ?? definedGroupContext;
 </script>
 
 <div class="option-container {value === selectedValue ? 'selected' : ''}">

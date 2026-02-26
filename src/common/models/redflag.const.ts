@@ -4,14 +4,14 @@ export const PREFIXMD_LOGFILE = "livesync_log_";
 export const PREFIXMD_LOGFILE_UC = "LIVESYNC_LOG_";
 
 export const FlagFilesOriginal = {
-    SUSPEND_ALL: "redflag.md" as FilePath,
-    REBUILD_ALL: "redflag2.md" as FilePath,
-    FETCH_ALL: "redflag3.md" as FilePath,
+	SUSPEND_ALL: "redflag.md" as FilePath,
+	REBUILD_ALL: "redflag2.md" as FilePath,
+	FETCH_ALL: "redflag3.md" as FilePath,
 } as const;
 
 export const FlagFilesHumanReadable = {
-    REBUILD_ALL: "flag_rebuild.md" as FilePath,
-    FETCH_ALL: "flag_fetch.md" as FilePath,
+	REBUILD_ALL: "flag_rebuild.md" as FilePath,
+	FETCH_ALL: "flag_fetch.md" as FilePath,
 } as const;
 
 /**

@@ -2,43 +2,43 @@ export type CouchDBCredentials = BasicCredentials | JWTCredentials;
 export type JWTAlgorithm = "HS256" | "HS512" | "ES256" | "ES512" | "";
 
 export type Credential = {
-    username: string;
-    password: string;
+	username: string;
+	password: string;
 };
 export type BasicCredentials = {
-    username: string;
-    password: string;
-    type: "basic";
+	username: string;
+	password: string;
+	type: "basic";
 };
 
 export type JWTCredentials = {
-    jwtAlgorithm: JWTAlgorithm;
-    jwtKey: string;
-    jwtKid: string;
-    jwtSub: string;
-    jwtExpDuration: number;
-    type: "jwt";
+	jwtAlgorithm: JWTAlgorithm;
+	jwtKey: string;
+	jwtKid: string;
+	jwtSub: string;
+	jwtExpDuration: number;
+	type: "jwt";
 };
 
 export interface JWTHeader {
-    alg: string;
-    typ: string;
-    kid?: string;
+	alg: string;
+	typ: string;
+	kid?: string;
 }
 export interface JWTPayload {
-    sub: string;
-    exp: number;
-    iss?: string;
-    iat: number;
-    [key: string]: any;
+	sub: string;
+	exp: number;
+	iss?: string;
+	iat: number;
+	[key: string]: any;
 }
 export interface JWTParams {
-    header: JWTHeader;
-    payload: JWTPayload;
-    credentials: JWTCredentials;
+	header: JWTHeader;
+	payload: JWTPayload;
+	credentials: JWTCredentials;
 }
 export interface PreparedJWT {
-    header: JWTHeader;
-    payload: JWTPayload;
-    token: string;
+	header: JWTHeader;
+	payload: JWTPayload;
+	token: string;
 }

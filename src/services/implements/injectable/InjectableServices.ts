@@ -18,21 +18,22 @@ import type { PathService } from "../../base/PathService";
 import type { DatabaseService } from "@lib/services/base/DatabaseService.ts";
 import type { SettingService } from "../../base/SettingService";
 
-export type InjectableServiceInstances<T extends ServiceContext> = ServiceInstances<T> & {
-    API?: InjectableAPIService<T>;
-    path?: PathService<T>;
-    database?: DatabaseService<T>;
-    databaseEvents?: InjectableDatabaseEventService<T>;
-    replicator?: InjectableReplicatorService<T>;
-    fileProcessing?: InjectableFileProcessingService<T>;
-    replication?: InjectableReplicationService<T>;
-    remote?: InjectableRemoteService<T>;
-    conflict?: InjectableConflictService<T>;
-    appLifecycle?: AppLifecycleServiceBase<T>;
-    setting?: SettingService<T>;
-    tweakValue?: InjectableTweakValueService<T>;
-    vault?: InjectableVaultService<T>;
-    test?: InjectableTestService<T>;
-    ui?: UIService<T>;
-    config?: ConfigService<T>;
-};
+export type InjectableServiceInstances<T extends ServiceContext> =
+	ServiceInstances<T> & {
+		API?: InjectableAPIService<T>;
+		path?: PathService<T>;
+		database?: DatabaseService<T>;
+		databaseEvents?: InjectableDatabaseEventService<T>;
+		replicator?: InjectableReplicatorService<T>;
+		fileProcessing?: InjectableFileProcessingService<T>;
+		replication?: InjectableReplicationService<T>;
+		remote?: InjectableRemoteService<T>;
+		conflict?: InjectableConflictService<T>;
+		appLifecycle?: AppLifecycleServiceBase<T>;
+		setting?: SettingService<T>;
+		tweakValue?: InjectableTweakValueService<T>;
+		vault?: InjectableVaultService<T>;
+		test?: InjectableTestService<T>;
+		ui?: UIService<T>;
+		config?: ConfigService<T>;
+	};

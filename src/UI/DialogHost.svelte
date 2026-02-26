@@ -1,40 +1,49 @@
 <script lang="ts">
-    import type { DialogHostProps } from "../services/implements/base/SvelteDialog";
-    import { type DialogSvelteComponentBaseProps, type ComponentHasResult } from "./svelteDialog";
-    // type Props = DialogSvelteComponentBaseProps & {
-    //     /**
-    //      * The Svelte component to mount inside the dialog host
-    //      */
-    //     mountComponent: ComponentHasResult<any>;
-    //     /**
-    //      * Callback function to setup the dialog context
-    //      * @param props
-    //      */
-    //     onSetupContext?(props: DialogSvelteComponentBaseProps): void;
-    // };
-    const { setTitle, closeDialog, setResult, mountComponent, getInitialData, onSetupContext }: DialogHostProps =
-        $props();
-    const contextProps = {
-        setTitle,
-        closeDialog,
-        setResult,
-        getInitialData,
-    } as DialogSvelteComponentBaseProps;
+import type { DialogHostProps } from "../services/implements/base/SvelteDialog";
+import {
+	type DialogSvelteComponentBaseProps,
+	type ComponentHasResult,
+} from "./svelteDialog";
+// type Props = DialogSvelteComponentBaseProps & {
+//     /**
+//      * The Svelte component to mount inside the dialog host
+//      */
+//     mountComponent: ComponentHasResult<any>;
+//     /**
+//      * Callback function to setup the dialog context
+//      * @param props
+//      */
+//     onSetupContext?(props: DialogSvelteComponentBaseProps): void;
+// };
+const {
+	setTitle,
+	closeDialog,
+	setResult,
+	mountComponent,
+	getInitialData,
+	onSetupContext,
+}: DialogHostProps = $props();
+const contextProps = {
+	setTitle,
+	closeDialog,
+	setResult,
+	getInitialData,
+} as DialogSvelteComponentBaseProps;
 
-    // Call the onSetupContext function to setup the dialog context
-    onSetupContext?.(contextProps);
+// Call the onSetupContext function to setup the dialog context
+onSetupContext?.(contextProps);
 
-    /**
-     * Wrapper around setResult to also close the dialog
-     * @param result
-     */
-    const setResultWrapper = (result: any) => {
-        setResult(result);
-        closeDialog();
-    };
+/**
+ * Wrapper around setResult to also close the dialog
+ * @param result
+ */
+const setResultWrapper = (result: any) => {
+	setResult(result);
+	closeDialog();
+};
 
-    const Component = mountComponent;
-    let thisElement: HTMLElement;
+const Component = mountComponent;
+let thisElement: HTMLElement;
 </script>
 
 <div class="dialog-host" bind:this={thisElement}>

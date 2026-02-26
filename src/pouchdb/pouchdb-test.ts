@@ -12,12 +12,12 @@ import transform from "transform-pouch";
 import adapterMemory from "pouchdb-adapter-memory";
 
 PouchDB.plugin(IDBPouch)
-    // .plugin(INDEXEDDBPouch)
-    .plugin(HttpPouch)
-    .plugin(mapreduce)
-    .plugin(replication)
-    .plugin(find)
-    .plugin(adapterMemory)
-    .plugin(transform);
+	// .plugin(INDEXEDDBPouch)
+	.plugin(HttpPouch)
+	.plugin(mapreduce)
+	.plugin(replication)
+	.plugin(find)
+	.plugin(adapterMemory)
+	.plugin(transform);
 
 export { PouchDB };

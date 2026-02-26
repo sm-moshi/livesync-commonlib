@@ -1,8 +1,8 @@
 <script lang="ts">
-    export type Props = {
-        children?: () => any;
-    };
-    const { children }: Props = $props();
+export type Props = {
+	children?: () => any;
+};
+const { children }: Props = $props();
 </script>
 
 <div class="button-group">

@@ -5,14 +5,16 @@
 import type { APIService } from "@lib/services/base/APIService";
 import { createInstanceLogFunction } from "@lib/services/lib/logUtils";
 export interface ServiceModuleBaseDependencies {
-    API: APIService;
+	API: APIService;
 }
-export abstract class ServiceModuleBase<T extends ServiceModuleBaseDependencies> {
-    _log: ReturnType<typeof createInstanceLogFunction>;
-    get name() {
-        return this.constructor.name;
-    }
-    constructor(services: T) {
-        this._log = createInstanceLogFunction(this.name, services.API);
-    }
+export abstract class ServiceModuleBase<
+	T extends ServiceModuleBaseDependencies,
+> {
+	_log: ReturnType<typeof createInstanceLogFunction>;
+	get name() {
+		return this.constructor.name;
+	}
+	constructor(services: T) {
+		this._log = createInstanceLogFunction(this.name, services.API);
+	}
 }

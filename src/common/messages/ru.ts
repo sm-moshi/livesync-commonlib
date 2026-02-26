@@ -1,4 +1,4 @@
 import ru from "../messagesJson/ru.json";
 export const PartialMessages = {
-    ru,
+	ru,
 } as const;
