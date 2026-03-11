@@ -112,6 +112,12 @@ export class DirectFileManipulator implements LiveSyncLocalDBEnv {
     services: HeadlessServiceHub;
     public async init() {
         await this.services.appLifecycle.onReady();
+        // Wire up _localDatabase on the database service before initialisation.
+        // Normally DatabaseService.openDatabase() sets this, but the bridge
+        // bypasses that flow. Without it, LiveSyncManagers.getManagerMembers()
+        // throws "Local database is not ready yet" when accessing
+        // databaseService.localDatabase.
+        (this.services.database as any)._localDatabase = this.liveSyncLocalDB;
         await this.liveSyncLocalDB.initializeDatabase();
         this.ready.resolve();
         this.liveSyncLocalDB.refreshSettings();
