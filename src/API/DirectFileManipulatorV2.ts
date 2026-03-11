@@ -165,6 +165,12 @@ export class DirectFileManipulator implements LiveSyncLocalDBEnv {
             console.warn("Loading settings is not supported in DirectFileManipulator.");
             return Promise.resolve(getSettings());
         });
+        // Pre-wire _settings so that currentSettings() returns a valid object.
+        // Without this, LiveSyncManagers → HashManagerCore.applyOptions() crashes
+        // with "Cannot read properties of undefined (reading 'encrypt')" because
+        // the bridge never calls loadSettings().
+        (this.services.setting as any)._settings = this.settings;
+
         // this.services.database.createPouchDBInstance.setHandler(this.$$createPouchDBInstance.bind(this));
         this.services.databaseEvents.onDatabaseInitialisation.addHandler(this.$everyOnInitializeDatabase.bind(this));
         this.liveSyncLocalDB = new LiveSyncLocalDB(this.options.url, this);
