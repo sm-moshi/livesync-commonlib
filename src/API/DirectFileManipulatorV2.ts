@@ -143,10 +143,10 @@ export class DirectFileManipulator implements LiveSyncLocalDBEnv {
         // this.log() during construction (upstream refactor 29f2a6a), which
         // invokes APIService.addLog. Without this assignment the Binder throws
         // "Handler addLog is not assigned".
-        this.services.API.addLog.assign((message: any, level?: any, key?: string) => {
+        this.services.API.addLog.setHandler((message: any, level?: any, key?: string) => {
             Logger(message, level, key);
         });
-        this.services.API.getSystemVaultName.assign(() => "headless-vault");
+        this.services.API.getSystemVaultName.setHandler(() => "headless-vault");
 
         // (this.services.setting as InjectableSettingService<ServiceContext>).currentSettings.setHandler(
         //     getSettings.bind(this)
